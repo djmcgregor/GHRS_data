@@ -1,0 +1,27 @@
+# A GitHub Action to periodically inspect a target repository and generate a report for it.
+# The primary purpose of this Action is to overcome the 14-day limitation of GitHub's built-in traffic statistics.
+
+name: github-repo-stats
+
+on:
+  schedule:
+    # Run this every 7th day at 22:00 (UTC time zone).
+    # Towards the end of the day for keeping the last data point meaningful.
+    - cron: "* 22 * * *"
+  workflow_dispatch: # Allow for running this manually.
+
+jobs:
+  j1:
+    name: github-repo-stats
+    runs-on: ubuntu-latest
+    steps:
+      - name: GHRS
+        uses: jgehrcke/github-repo-stats@HEAD
+        with:
+          # Define the target repository, the repo to fetch stats for and to 
+          # generate the report for. Leave this undefined when stats repository
+          # and data repository should be the same.
+          repository: djmcgregor/djmcgregor.github.io
+          # Required token privileges: Can read the target repo, and can push to the
+          # repository this workflow file lives in (to store data and the report files).
+          ghtoken: ${{ secrets.ghrs_api_token }}
