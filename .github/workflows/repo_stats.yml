@@ -18,10 +18,10 @@ jobs:
       - name: GHRS
         uses: jgehrcke/github-repo-stats@HEAD
         with:
-          # Define the target repository, the repo to fetch stats for and to 
-          # generate the report for. Leave this undefined when stats repository
-          # and data repository should be the same.
+          # Define the target repository, the repo to fetch stats for and to generate the report for.
+          # Leave this undefined when stats repository and data repository should be the same.
           repository: djmcgregor/djmcgregor.github.io
           # Required token privileges: Can read the target repo, and can push to the
           # repository this workflow file lives in (to store data and the report files).
           ghtoken: ${{ secrets.ghrs_api_token }}
+          databranch: main
